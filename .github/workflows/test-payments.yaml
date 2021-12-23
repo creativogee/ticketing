@@ -2,7 +2,8 @@ name: tests-payments
 
 on:
   pull_request:
-    branches: [ main ]
+    paths:
+      - 'payments/**'
 
 jobs:
   build:
@@ -10,4 +11,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run a one-line script
-        run: cd payments && npm install && npm run test:ci 
+        run: cd payments && npm install && npm run test:ci
