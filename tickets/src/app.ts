@@ -3,7 +3,13 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
-import { errorHandler, NotFoundError } from '@gbticket/common';
+import { errorHandler, NotFoundError, currentUser } from '@gbticket/common';
+import {
+  createTicketRouter,
+  showTicketRouter,
+  allTicketRouter,
+  updateTicketRouter,
+} from './routes';
 
 const app = express();
 app.set('trust proxy', true);
@@ -13,6 +19,10 @@ app.use(
     signed: false,
   }),
 );
+
+app.use(currentUser);
+
+app.use(createTicketRouter, showTicketRouter, allTicketRouter, updateTicketRouter);
 
 app.all('*', async () => {
   throw new NotFoundError();
