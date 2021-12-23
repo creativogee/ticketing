@@ -7,7 +7,7 @@ on:
     branches:
       - main
     paths: 
-      - 'auths/**'
+      - 'auth/**'
       
 # Jobs in the workflow run
 jobs:
