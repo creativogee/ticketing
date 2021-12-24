@@ -24,9 +24,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - run: |
-          google-github-actions/setup-gcloud@v0
-          gcloud info
+      - run: google-github-actions/setup-gcloud@v0
 
       # Configures Docker with Credentials
       - run: gcloud auth configure-docker
