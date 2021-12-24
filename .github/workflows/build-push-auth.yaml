@@ -28,4 +28,4 @@ jobs:
         run: docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
 
       - name: Push image to gcr
-      - run: docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+        run: docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
