@@ -20,8 +20,6 @@ jobs:
       # Grabs github checkout action
       - uses: actions/checkout@v2
 
-      - run: gcloud auth login
-
       - run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=${{ secrets.GCP_SA_KEY }}
 
       # Configures Docker with Credentials
