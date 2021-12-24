@@ -19,8 +19,11 @@ jobs:
     steps:
       # Grabs github checkout action
       - uses: actions/checkout@v2
-
-      - run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=${{ secrets.GCP_SA_KEY }}
+        with:
+          version: 'latest'
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          export_default_credentials: true
 
       # Configures Docker with Credentials
       - run: gcloud auth configure-docker
