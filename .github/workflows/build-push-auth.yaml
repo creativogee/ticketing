@@ -26,13 +26,10 @@ jobs:
           export_default_credentials: true
 
       # Configures Docker with Credentials
-      - run: |
-          gcloud auth configure-docker
+      - run: gcloud auth configure-docker
 
       # Builds image
-      - run: |
-          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest .
+      - run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
 
       # Pushes image to gcr
-      - run: |
-          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+      - run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
