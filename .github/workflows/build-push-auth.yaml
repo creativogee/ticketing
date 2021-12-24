@@ -19,17 +19,10 @@ jobs:
     steps:
       # Grabs github checkout action
       - uses: actions/checkout@v2
-        with:
-          version: 'latest'
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-          export_default_credentials: true
 
-      # Configures Docker with Credentials
-      - run: gcloud auth configure-docker
-
-      # Builds image
-      - run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
-
-      # Pushes image to gcr
-      - run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+      - run: |
+          gcloud auth login
+          gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=${{ secrets.GCP_SA_KEY }}
+          gcloud auth configure-docker
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
