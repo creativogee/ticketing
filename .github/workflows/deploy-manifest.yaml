@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy manifest
         run: |
-          kubectl get services -o wide
+          kubectl version
