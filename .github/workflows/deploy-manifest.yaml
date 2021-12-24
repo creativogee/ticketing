@@ -21,7 +21,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - run: gcloud auth activate-service-account ${{ GCP_SA_EMAIL }} --key-file '${{ secrets.GCP_CREDENTIALS }}'
+      - run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file '${{ secrets.GCP_CREDENTIALS }}'
 
       - name: Deploy manifest
         run: |
