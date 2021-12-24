@@ -21,7 +21,7 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - run: gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }}
+      - run: gcloud container clusters get-credentials ${{ secrets.GKE_CLUSTER_NAME }} --zone=${{ secrets.GKE_CLUSTER_LOCATION }}
 
       - name: Deploy manifest
         run: |
