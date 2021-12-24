@@ -1,4 +1,4 @@
-name: build-push-auth
+name: deploy-auth
 
 on:
   # Trigger
