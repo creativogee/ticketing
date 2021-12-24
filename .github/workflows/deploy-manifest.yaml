@@ -21,6 +21,12 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
+      - name: Get GKE credentials
+        uses: 'google-github-actions/get-gke-credentials@v0'
+        with:
+          cluster_name: '${{ secrets.GKE_CLUSTER_NAME }}'
+          location: '${{ secrets.GKE_CLUSTER_LOCATION }}'
+
       - name: Deploy manifest
         run: |
           kubectl apply -f './infra/k8s'
