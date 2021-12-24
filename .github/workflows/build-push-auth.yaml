@@ -28,10 +28,8 @@ jobs:
       # Configures Docker with Credentials
       - run: gcloud auth configure-docker
 
-      - run: cd auth
-
       # Builds image
-      - run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest .
+      - run: cd auth && docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest .
 
       # Pushes image to gcr
-      - run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+      - run: cd auth && docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
