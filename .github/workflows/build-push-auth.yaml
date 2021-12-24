@@ -19,6 +19,8 @@ jobs:
     steps:
       # Grabs github checkout action
       - uses: actions/checkout@v2
+
+      - uses: google-github-actions/setup-gcloud@master
         with:
           version: 'latest'
           service_account_key: ${{ secrets.GCP_SA_KEY }}
@@ -29,7 +31,7 @@ jobs:
       - run: gcloud auth configure-docker
 
       # Builds image
-      - run: cd auth && docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest .
+      - run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
 
       # Pushes image to gcr
-      - run: cd auth && docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+      - run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
