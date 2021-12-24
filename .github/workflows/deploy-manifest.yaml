@@ -21,9 +21,5 @@ jobs:
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      - run: gcloud container clusters get-credentials ticketing-dev --zone=us-central1-c
-
       - name: Deploy manifest
-        run: |
-          kubectl apply -f 'infra/k8s'
-          kubectl apply -f 'infra/k8s-prod'
+        run: kubectl apply -f 'infra/k8s' && kubectl apply -f 'infra/k8s-prod'
