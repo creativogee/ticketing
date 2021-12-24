@@ -1,34 +1,31 @@
 name: build-push-auth
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push request events to main branch, specifically auth dir
+  # Trigger
   push:
     branches:
       - main
     paths:
       - 'auth/**'
 
-# Jobs in the workflow run
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
 
-    # Tasks executed as part of the build job
     steps:
-      # Grabs github checkout action
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - uses: google-github-actions/auth@v0
+      - name: Setup google cloud
+        uses: google-github-actions/auth@v0
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
-      # Configures Docker with Credentials
-      - run: gcloud auth configure-docker
+      - name: Configure docker
+        run: gcloud auth configure-docker
 
-      # Builds image
-      - run: docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
+      - name: Build image
+        run: docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
 
-      # Pushes image to gcr
-      - run: docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
+      - name: Push image to gcr
+      - run: docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
