@@ -29,4 +29,5 @@ jobs:
 
       - name: Deploy manifest
         run: |
-          kubectl version
+          kubectl apply -f ./infra/k8s
+          kubectl apply -f ./infra/k8s-prod
