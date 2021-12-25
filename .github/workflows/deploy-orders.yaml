@@ -30,5 +30,11 @@ jobs:
       - name: Push image to gcr
         run: docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/orders:latest
 
+      - name: Get GKE credentials
+        uses: 'google-github-actions/get-gke-credentials@v0'
+        with:
+          cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
+          location: ${{ secrets.GKE_CLUSTER_LOCATION }}
+
       - name: Rollout update
         run: kubectl rollout restart deployment orders-depl
