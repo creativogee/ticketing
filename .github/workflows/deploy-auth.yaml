@@ -1,7 +1,6 @@
 name: deploy-auth
 
 on:
-  # Trigger
   push:
     branches:
       - main
@@ -13,12 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout ticketing repo
         uses: actions/checkout@v2
 
-      - name: Setup google cloud
+      - name: Permit github on google cloud
         uses: google-github-actions/auth@v0
         with:
+          # service account credentials
           credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
 
       - name: Configure docker
@@ -27,11 +27,11 @@ jobs:
       - name: Build image
         run: docker build -t us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest ./auth
 
-      - name: Push image to gcr
+      - name: Publish image to gcr
         run: docker push us.gcr.io/${{ secrets.GCP_PROJECT_ID }}/auth:latest
 
-      - name: Get GKE credentials
-        uses: 'google-github-actions/get-gke-credentials@v0'
+      - name: Point kubectl at specified cluster in GKE
+        uses: google-github-actions/get-gke-credentials@v0
         with:
           cluster_name: ${{ secrets.GKE_CLUSTER_NAME }}
           location: ${{ secrets.GKE_CLUSTER_LOCATION }}
