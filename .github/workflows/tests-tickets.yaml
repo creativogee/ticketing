@@ -9,6 +9,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: cd tickets && npm install && npm run test:ci
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run unit tests
+        run: |
+          cd tickets
+          npm install
+          npm run test:ci
