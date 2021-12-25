@@ -7,7 +7,6 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
   rules:
-    # placeholder host
     - host: ticketing.dev
       http:
         paths:
